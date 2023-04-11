@@ -4,7 +4,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-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
 ### STS ###
 .apt_generated
 .classpath
