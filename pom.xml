@@ -7,6 +7,7 @@
         <module>common</module>
         <module>server</module>
     </modules>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -16,14 +17,17 @@
     <groupId>com.example</groupId>
     <artifactId>mydemo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>mydemo</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
         <java.version>20</java.version>
         <spring-boot-admin.version>3.0.2</spring-boot-admin.version>
         <spring-cloud.version>2022.0.2</spring-cloud.version>
         <vaadin.version>24.0.3</vaadin.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -31,6 +35,17 @@
                 <artifactId>vaadin-spring-boot-starter</artifactId>
                 <version>${vaadin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.eatthepath</groupId>
+                <artifactId>pushy</artifactId>
+                <version>0.15.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eatthepath</groupId>
+                <artifactId>pushy-dropwizard-metrics-listener</artifactId>
+                <version>0.14.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
 </project>
