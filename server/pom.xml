@@ -12,8 +12,6 @@
 	<name>server</name>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-	</properties>
 
 	<dependencies>
 		<dependency>
