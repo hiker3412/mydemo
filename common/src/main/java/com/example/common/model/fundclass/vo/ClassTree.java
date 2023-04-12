@@ -8,8 +8,8 @@ import java.util.Map;
 
 @Data
 @Accessors(chain = true)
-public class SecurityClassTree {
+public class ClassTree {
     private String classCode;
     private String className;
-    private Map<String, SecurityClassTree> subClass = new HashMap<>();
+    private Map<String, ClassTree> subClass = new HashMap<>();
 }
