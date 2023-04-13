@@ -128,8 +128,11 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
             }
         }
         sb.append("--插入新的指数分类映射\n");
+        Set<String> indexCodes = new HashSet<>();
         for (SecurityClassRow row:securityClassRows){
             if (StringUtils.isBlank(row.getIndexCode()) || StringUtils.isBlank(row.getC1Code())){continue;}
+            if (indexCodes.contains(row.getIndexCode())) continue;
+            indexCodes.add(row.getIndexCode());
             if (StringUtils.isNotBlank(row.getC3Code())){
                 sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() +"','"+ row.getC3Code() + "')").append("\n/\n");
             }else if (StringUtils.isNotBlank(row.getC2Code())){
