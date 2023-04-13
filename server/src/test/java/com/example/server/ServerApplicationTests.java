@@ -5,7 +5,7 @@ import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.DecimalFormat;
+import java.io.IOException;
 
 @SpringBootTest
 class ServerApplicationTests {
@@ -15,7 +15,11 @@ class ServerApplicationTests {
 
 	@Test
 	void contextLoads() {
-		fundClassTreeService.readExcel();
+		try {
+			fundClassTreeService.updateSecurityClass();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

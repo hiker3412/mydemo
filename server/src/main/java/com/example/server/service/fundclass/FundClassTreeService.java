@@ -4,5 +4,5 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface FundClassTreeService {
-    void readExcel() throws IOException;
+    void updateSecurityClass() throws Exception;
 }
