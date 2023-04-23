@@ -6,6 +6,7 @@ import com.example.server.service.fundclass.FundClassTreeService;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootTest
+@EnableDiscoveryClient
 class ServerApplicationTests {
 
 	@Resource
