@@ -45,6 +45,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--  =================boot=========================== -->
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>common</artifactId>

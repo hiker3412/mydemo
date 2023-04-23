@@ -29,7 +29,7 @@ class ServerApplicationTests {
 
 	@Test
 	void printList() {
-		ArrayList<String> strings = new ArrayList<String>();
+		ArrayList<String> strings = new ArrayList<>();
 		strings.add("1");
 		strings.add("1");
 		strings.add("2");
@@ -52,6 +52,12 @@ class ServerApplicationTests {
 		System.out.println("上证180ETF联接".matches(etfConnection));
 		System.out.println("上证180ETF联接A".matches(etfConnection));
 		System.out.println("上证180ETF联接(LOF)".matches(etfConnection));
+	}
+
+	@Test
+	void testLogic() {
+		System.out.println(123);
+		System.out.println(456);
 	}
 
 }
