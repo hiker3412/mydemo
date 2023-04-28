@@ -62,4 +62,23 @@ class ServerApplicationTests {
 		System.out.println(456);
 	}
 
+	@Test
+	public void test() {
+		System.out.println(divide(2.0,1.0,4.0,0.5));
+	}
+
+	public Double divide(Double ...v) {
+		Double result = null;
+		for (int i=0; i<v.length;i++){
+			if(v[i]== null || v[i] == 0) return null;
+			if(result== null) {
+				result = v[i];
+			} else {
+				result = result / v[i];
+			}
+		}
+		return result;
+	}
+
+
 }

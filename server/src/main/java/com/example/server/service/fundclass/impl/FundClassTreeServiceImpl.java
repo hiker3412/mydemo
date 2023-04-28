@@ -1,11 +1,11 @@
 package com.example.server.service.fundclass.impl;
 
 import com.example.common.model.fundclass.vo.ClassRow;
-import com.example.common.model.fundclass.vo.SecurityClassRow;
 import com.example.common.model.fundclass.vo.ClassTree;
+import com.example.common.model.fundclass.vo.SecurityClassRow;
+import com.example.common.util.StringUtils;
 import com.example.server.service.fundclass.FundClassTreeService;
 import org.apache.commons.collections4.MapUtils;
-import com.example.common.util.StringUtils;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -14,17 +14,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
+
 import static com.example.common.util.NumberFmt.*;
 
 @Service
 public class FundClassTreeServiceImpl implements FundClassTreeService {
     private static final String mapKeyName = "className";
     private static final String mapKeyCode = "classCode";
-    public static String customIndexClass1= "customIndexClass1";
+    public static String customIndexClass1 = "customIndexClass1";
     public static String customIndexClass2 = "customIndexClass2";
     public static String customIndexClass3 = "customIndexClass3";
     public static String windIndexCodeToCustomIndexClass = "windIndexCodeToCustomIndexClass";
@@ -62,7 +61,7 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
             String inC1Name = getCellValue(sheetRow.getCell(1));
             String inC2Name = getCellValue(sheetRow.getCell(2));
             String inC3Name = getCellValue(sheetRow.getCell(3));
-            SecurityClassRow classNameRow = (SecurityClassRow)new SecurityClassRow()
+            SecurityClassRow classNameRow = (SecurityClassRow) new SecurityClassRow()
                     .setIndexCode(inIndexCode)
                     .setC1Name(inC1Name)
                     .setC2Name(inC2Name)
@@ -70,7 +69,7 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
             securityClassRows.add(classNameRow);
         }
         //原有分类树和新的指数分类行相互更新
-        cMapAndCRowsMutualUpdate(classNameMap,securityClassRows);
+        cMapAndCRowsMutualUpdate(classNameMap, securityClassRows);
         List<ClassRow> classRows = classMapToClassRows(classNameMap);
 
         //入库
@@ -97,48 +96,56 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
         Set<String> c1Codes = new HashSet<>();
         Set<String> c2Codes = new HashSet<>();
         Set<String> c3Codes = new HashSet<>();
-        for (ClassRow classRow : classRows){
-            if (StringUtils.isBlank(classRow.getC1Code())) {continue;}
+        for (ClassRow classRow : classRows) {
+            if (StringUtils.isBlank(classRow.getC1Code())) {
+                continue;
+            }
             if (!c1Codes.contains(classRow.getC1Code())) {
                 c1Codes.add(classRow.getC1Code());
-                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + customIndexClass1 + "','" + classRow.getC1Code() +"','"+ classRow.getC1Name() + "')").append("\n/\n");
+                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + customIndexClass1 + "','" + classRow.getC1Code() + "','" + classRow.getC1Name() + "')").append("\n/\n");
 
             }
 
-            if (StringUtils.isBlank(classRow.getC2Code())) {continue;}
+            if (StringUtils.isBlank(classRow.getC2Code())) {
+                continue;
+            }
             if (!c2Codes.contains(classRow.getC2Code())) {
                 String c2Code = classRow.getC2Code();
                 String c2Name = classRow.getC2Name();
-                if ("其他".equals(c2Name.trim())){
+                if ("其他".equals(c2Name.trim())) {
                     c2Name = c2Name + "-" + classRow.getC1Name();
                 }
-                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + customIndexClass2 + "','" + c2Code +"','"+ c2Name + "')").append("\n/\n");
+                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + customIndexClass2 + "','" + c2Code + "','" + c2Name + "')").append("\n/\n");
                 c2Codes.add(c2Code);
             }
 
-            if (StringUtils.isBlank(classRow.getC3Code())) {continue;}
+            if (StringUtils.isBlank(classRow.getC3Code())) {
+                continue;
+            }
             if (!c3Codes.contains(classRow.getC3Code())) {
                 String c3Code = classRow.getC3Code();
                 String c3Name = classRow.getC3Name();
-                if ("其他".equals(c3Name.trim())){
+                if ("其他".equals(c3Name.trim())) {
                     c3Name = c3Name + "-" + classRow.getC1Name();
                 }
-                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + customIndexClass3 + "','" + c3Code +"','"+ c3Name + "')").append("\n/\n");
+                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + customIndexClass3 + "','" + c3Code + "','" + c3Name + "')").append("\n/\n");
                 c3Codes.add(c3Code);
             }
         }
         sb.append("--插入新的指数分类映射\n");
         Set<String> indexCodes = new HashSet<>();
-        for (SecurityClassRow row:securityClassRows){
-            if (StringUtils.isBlank(row.getIndexCode()) || StringUtils.isBlank(row.getC1Code())){continue;}
+        for (SecurityClassRow row : securityClassRows) {
+            if (StringUtils.isBlank(row.getIndexCode()) || StringUtils.isBlank(row.getC1Code())) {
+                continue;
+            }
             if (indexCodes.contains(row.getIndexCode())) continue;
             indexCodes.add(row.getIndexCode());
-            if (StringUtils.isNotBlank(row.getC3Code())){
-                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() +"','"+ row.getC3Code() + "')").append("\n/\n");
-            }else if (StringUtils.isNotBlank(row.getC2Code())){
-                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() +"','"+ row.getC2Code() + "')").append("\n/\n");
-            }else {
-                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() +"','"+ row.getC1Code() + "')").append("\n/\n");
+            if (StringUtils.isNotBlank(row.getC3Code())) {
+                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() + "','" + row.getC3Code() + "')").append("\n/\n");
+            } else if (StringUtils.isNotBlank(row.getC2Code())) {
+                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() + "','" + row.getC2Code() + "')").append("\n/\n");
+            } else {
+                sb.append("insert into T_DATA_DICT(GROUP_ID,K,V) VALUES('" + windIndexCodeToCustomIndexClass + "','" + row.getIndexCode() + "','" + row.getC1Code() + "')").append("\n/\n");
             }
         }
         return sb.toString();
@@ -148,10 +155,11 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
      * 分类map树和指数分类记录相互更新
      * - 从指数分类名称更新原有分类名称(新增)
      * - 从原有分类更新指数分类code
-     * @param c1NameMap 原有的分类map树，k-指数分类名称，v-指数分类对象
+     *
+     * @param c1NameMap             原有的分类map树，k-指数分类名称，v-指数分类对象
      * @param securityClassNameRows 指数分类记录，每个指数对应的各级分类名称
      */
-    private void cMapAndCRowsMutualUpdate(Map<String, ClassTree>  c1NameMap, List<SecurityClassRow> securityClassNameRows) {
+    private void cMapAndCRowsMutualUpdate(Map<String, ClassTree> c1NameMap, List<SecurityClassRow> securityClassNameRows) {
         for (SecurityClassRow securityClassRow : securityClassNameRows) {
             String c1Name = securityClassRow.getC1Name();
             String c2Name = securityClassRow.getC2Name();
@@ -235,7 +243,8 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
 
     /**
      * 将逐条分类行转换成map分类树的结构
-     * @param classRows 各级一一对应的分类行
+     *
+     * @param classRows  各级一一对应的分类行
      * @param mapKeyType map分类树的key，分类code或分类name
      * @return map分类树
      */
@@ -310,6 +319,7 @@ public class FundClassTreeServiceImpl implements FundClassTreeService {
     /**
      * classRowsToClassMap方法的逆运算
      * 将map分类树结构转换成逐条分类行
+     *
      * @param classMap map分类树的
      * @return 逐条分类行
      */
