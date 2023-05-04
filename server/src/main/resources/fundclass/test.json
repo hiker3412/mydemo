@@ -1,0 +1,46 @@
+{
+  "code": "200",
+  "message": "获取成功",
+  "data": {
+    "baseFundInfo": {
+      "fundCode": "002001",
+      "fundName": "华夏回报混合A",
+      "fundType": "混合型",
+      "currentScale": "最新规模",
+      "establishDate": "成立日期",
+      "riskLevel": "风险等级",
+      "dailyIncomeRate": "日账跌幅",
+      "netValue":"单位净值",
+      "totalValue":"累计净值",
+      "tradeDate": "交易日期",
+      "managerList":[
+        {
+          "id": "ab001", //基金经理id，
+          "avatar": "http://xxx.jpg",//头像
+          "name": "姓名",
+          "tags": ["金牛奖得主"],//基金经理标签
+          "joinWorkDuration": "2年9月", //从业时长
+          "joinWorkReturn": 2.97, //从业年华回报
+          "employmentPeriod": "2021/12/21 ~ 至今",//本基金任职时间
+          "employmentReturn": 39.56,//任职回报率，单位%
+          "annualReturn": 23.23 //年化回报，单位%
+        }
+      ],
+      "establishTime":"成立时长（XX年XX天）"
+    },
+    "isConcern":"'0'or '1'",// 0：未加自选  1：已加自选
+    "incomeRate":{
+      "dataSource":"wind",
+      "updateTime":"yyyy-MM-dd",
+      "incomeRateSinceEstablish": "成立以来收益率",
+      "incomeRateThisYear": "今年以来收益率",
+      "incomeRateLastMonth": "近一月收益率",
+      "incomeRateLastYear": "近一年收益率",
+      "incomeRateLast3Year": "近三年收益率",
+      "incomeRateLastWeek": "近一周收益率",
+      "incomeRateLast6Month": "进半年收益率",
+      "incomeRateLast3Month": "进三月收益率",
+      "incomeRateLast5Year": "近五年收益率"
+    }
+  }
+}
