@@ -31,6 +31,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--  =====================cloud====================  -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -46,13 +47,14 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--  =================boot=========================== -->
+            <!--  =================modules=========================== -->
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
                 <scope>compile</scope>
             </dependency>
+            <!--  =================utils=========================== -->
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-spring-boot-starter</artifactId>
