@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.common.enumeration.ColorEnum;
 import com.example.common.model.abstracttest.vo.User1;
 import com.example.common.model.abstracttest.vo.User2;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TestClass {
+
+    @Test
+    void testEnum(){
+        System.out.println(ColorEnum.valueOf("RwED"));
+    }
 
     @Test
     void printList() {
