@@ -3,6 +3,7 @@ package com.example.server.controller;
 import com.example.server.feign.server2.TestClient;
 import feign.Request;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,14 @@ import java.util.concurrent.TimeUnit;
 public class TestController {
     @Resource
     private TestClient testClient;
+
+    @GetMapping("/path1/**")
+    public Object pathVariable(HttpServletRequest request){
+
+        String requestURI = request.getRequestURI();
+        int path1Index = requestURI.indexOf("path1");
+        return requestURI.substring(path1Index + "path1".length() + 1);
+    }
 
     @GetMapping("/arrayParam")
     public Object arrayParam(ArrayList<String> aList){
