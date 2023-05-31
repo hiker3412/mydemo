@@ -21,9 +21,9 @@ public class TestController {
     private TestClient testClient;
 
     @GetMapping("/arrayParam")
-    public Object arrayParam(String[] aList){
+    public Object arrayParam(ArrayList<String> aList){
         log.info("收到的参数是：");
-        Arrays.stream(aList).forEach(System.out::println);
+        aList.forEach(System.out::println);
         return aList;
     }
 

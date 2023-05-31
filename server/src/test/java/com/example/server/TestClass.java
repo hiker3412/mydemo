@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.common.enumeration.ColorEnum;
 import com.example.common.model.abstracttest.vo.User1;
 import com.example.common.model.abstracttest.vo.User2;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,11 @@ public class TestClass {
         return bos.toByteArray();
     }
 
+
+    @Test
+    void testEnum(){
+        System.out.println(ColorEnum.valueOf("RwED"));
+    }
 
     @Test
     void printList() {
