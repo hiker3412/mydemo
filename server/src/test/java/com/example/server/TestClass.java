@@ -3,6 +3,8 @@ package com.example.server;
 import com.example.common.enumeration.ColorEnum;
 import com.example.common.model.abstracttest.vo.User1;
 import com.example.common.model.abstracttest.vo.User2;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -18,29 +20,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TestClass {
+
     @Test
-    void netDownload() throws Exception{
+    void netDownload2() throws Exception{
         URL url = new URL("http://news.windin.com/bulletin/79268996.pdf?mediatype=03&&pkid=79268996&&id=115467298");
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        InputStream inputStream = connection.getInputStream();
-        byte[] bytes = new byte[20480];
-        System.out.println(inputStream.available());
-        int read = inputStream.read(bytes);
-        System.out.println(read);
-        FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\IdeaProjects\\mydemo\\server\\src\\test\\resources\\test.pdf");
-        fileOutputStream.write(bytes,0,read);
+        byte[] bytes = IOUtils.toByteArray(url);
+        System.out.println(bytes.length);
+        FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\IdeaProjects\\mydemo\\server\\src\\test\\resources\\test2.pdf");
+        fileOutputStream.write(bytes);
     }
 
     @Test
-    void netDownload2() throws Exception {
+    void netDownload3() throws Exception {
         URL url = new URL("http://news.windin.com/bulletin/79268996.pdf?mediatype=03&&pkid=79268996&&id=115467298");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        // 得到输入流
         InputStream inputStream = conn.getInputStream();
-        // 获取自己数组
         byte[] bytes = readInputStream(inputStream);
         System.out.println(bytes.length);
-        FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\IdeaProjects\\mydemo\\server\\src\\test\\resources\\test2.pdf");
+        FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\IdeaProjects\\mydemo\\server\\src\\test\\resources\\test3.pdf");
         fileOutputStream.write(bytes);
     }
 
