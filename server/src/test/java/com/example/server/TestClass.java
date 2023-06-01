@@ -35,7 +35,7 @@ public class TestClass {
         URL url = new URL("http://news.windin.com/bulletin/79268996.pdf?mediatype=03&&pkid=79268996&&id=115467298");
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         InputStream inputStream = conn.getInputStream();
-        byte[] bytes = readInputStream(inputStream);
+        byte[] bytes = IOUtils.toByteArray(inputStream);
         System.out.println(bytes.length);
         FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\Administrator\\IdeaProjects\\mydemo\\server\\src\\test\\resources\\test3.pdf");
         fileOutputStream.write(bytes);
